@@ -1,0 +1,33 @@
+﻿@model List<Authentication.Model.User>
+@{
+    ViewBag.Title = "Users";
+}
+
+<h2>Utilisateurs</h2>
+
+<table class="table table-striped" >
+    <caption>Liste des utilisateurs</caption>
+    <thead>
+        <tr>
+            <th class="col-md-4">Login</th>
+            <th class="col-md-4">Mail</th>
+            <th class="col-md-2">Tel</th>
+            <th class="col-md-1"></th>
+            <th class="col-md-1"></th>      
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+       
+            <tr>
+                <td>@item.Login</td>
+                <td>@item.Email</td>
+                <td>@item.Tel</td>
+                <td><a href="@Url.Action("UserEdit", new { @Id=item.Id })"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
+                <td><a href="@Url.Action("UserDelete", new { @Id = item.Id })"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>            
+            </tr>            
+        }
+
+    </tbody>
+</table>
