@@ -19,9 +19,9 @@ namespace Aunthentication.DAL
         {
             string procname = "spUserAdd";
             SqlParameter pLogin = new SqlParameter("@Login", user.Login);
-            SqlParameter pPassword = new SqlParameter("@Password", user.Login);
-            SqlParameter pEmail = new SqlParameter("@Email", user.Login);
-            SqlParameter pTel = new SqlParameter("@Tel", user.Login);
+            SqlParameter pPassword = new SqlParameter("@Password", user.Password);
+            SqlParameter pEmail = new SqlParameter("@Email", user.Email);
+            SqlParameter pTel = new SqlParameter("@Tel", user.Tel);
             Database.ExcecuteNonQuery(procname, new SqlParameter[] { pLogin, pPassword, pEmail, pTel });
         }
 
@@ -61,13 +61,13 @@ namespace Aunthentication.DAL
         /// </summary>
         /// <param name="id">User Id</param>
         /// <returns></returns>
-        public List<User> GetbyId(int id)
+        public User GetbyId(int id)
         {
-            string procname = "spUserValidate";
+            string procname = "spUserGetbyId";
             SqlParameter pId = new SqlParameter("@Id", id);
             DataTable DT = Database.ExcecuteReader(procname, new SqlParameter[] { pId });
             var users = GetUsers(DT);
-            return users;
+            return users.FirstOrDefault();
         }
 
         /// <summary>

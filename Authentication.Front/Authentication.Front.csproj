@@ -151,7 +151,7 @@
     <Content Include="Views\Admin\EditRole.cshtml" />
     <Content Include="Views\Admin\User.cshtml" />
     <Content Include="Views\Admin\UserCreate.cshtml" />
-    <Content Include="Views\Admin\UserCreateTest.cshtml" />
+    <Content Include="Views\Admin\UserEdit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

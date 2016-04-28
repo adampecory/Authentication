@@ -1,4 +1,4 @@
-﻿@model Authentication.Model.User
+﻿@model Authentication.Front.ViewModel.UserVM
 @{
     ViewBag.Title = "Ajouter Utilisateur";
 }
@@ -8,6 +8,8 @@
 <div class="container">
     @using (Html.BeginForm()) 
     {
+        @Html.ValidationSummary()
+    
     <div class="form-group">
         @Html.LabelFor(m => m.Login, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -15,12 +17,14 @@
             @Html.ValidationMessageFor(m => m.Login)
         </div>
     </div>
-        
+                
     <div class="form-group">
-        <label for="inputLogin">Login</label>
-        <input type="text" class="form-control" id="inputLogin" placeholder="Login" />
-        @Html.ValidationMessageFor(m => m.Login)
-    </div>
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email)
+        </div>
+    </div>    
         
     <div class="form-group">
         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
@@ -31,12 +35,14 @@
     </div>
         
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.Email)
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
         </div>
     </div>
+        
+
         
     <div class="form-group">
         @Html.LabelFor(m => m.Tel, new { @class = "col-md-2 control-label" })

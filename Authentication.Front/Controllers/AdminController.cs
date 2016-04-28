@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Authentication.Front.ViewModel;
 
 namespace Authentication.Front.Controllers
 {
@@ -91,19 +92,44 @@ namespace Authentication.Front.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UserCreate(int id)
+        public ActionResult UserCreate(UserVM user)
         {
+            if (ModelState.IsValid)
+            {
+                var us = new Model.User
+                {
+                    Email = user.Email,
+                    Login = user.Login,
+                    Password = user.Password,
+                    Tel = user.Tel
+                };
+                um.Add(us);
+            }
             //var model = um.get
-            return View();
+            return RedirectToAction("UserCreate");
         }
 
-        public ActionResult UserEdit()
+        public ActionResult UserEdit(int Id)
         {
-            return View();
+            var user = um.GetbyId(Id);
+            var uvm = new UserVM()
+            {
+                Id = user.Id,
+                Login = user.Login,
+                Email = user.Email,
+                Password = user.Password,
+                ConfirmPassword = user.Password
+            };
+            return View(uvm);
         }
+
         [HttpPost]
-        public ActionResult UserEdit(int id)
+        public ActionResult UserEdit(UserVM uvm)
         {
+            if (ModelState.IsValid)
+            {
+
+            }
             return View();
         }
         #endregion

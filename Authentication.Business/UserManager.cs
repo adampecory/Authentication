@@ -16,6 +16,12 @@ namespace Authentication.Business
         {
             repo.AddUser(user);
         }
+
+        public User GetbyId(int id)
+        {
+            return repo.GetbyId(id);
+        }
+
         public void Update(User user)
         {
             repo.UpdateUser(user);
