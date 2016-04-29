@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+//using System.Web.Mvc;
 
 namespace Authentication.Front.ViewModel
 {
@@ -43,5 +44,13 @@ namespace Authentication.Front.ViewModel
         [RegularExpression(@"\d{10}", ErrorMessage = "Invalid Phone Number!")]
         [DataType(DataType.PhoneNumber)]
         public string Tel { get; set; }
+    }
+
+    public class UserRoleVM
+    {
+        public IEnumerable<System.Web.Mvc.SelectListItem> Users {get; set;}
+        public IEnumerable<System.Web.Mvc.SelectListItem> Roles { get; set; }
+        public int[] SelectedUsers { get; set; }
+        public int[] SelectedRoles { get; set; }
     }
 }

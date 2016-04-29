@@ -77,15 +77,6 @@ namespace Authentication.Front.Controllers
             return View(model);
         }
 
-        public ActionResult UserDelete()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult UserDelete(int id)
-        {
-            return View();
-        }
 
         public ActionResult UserCreate()
         {
@@ -109,6 +100,7 @@ namespace Authentication.Front.Controllers
             return RedirectToAction("UserCreate");
         }
 
+
         public ActionResult UserEdit(int Id)
         {
             var user = um.GetbyId(Id);
@@ -118,21 +110,101 @@ namespace Authentication.Front.Controllers
                 Login = user.Login,
                 Email = user.Email,
                 Password = user.Password,
-                ConfirmPassword = user.Password
+                ConfirmPassword = user.Password,
+                Tel = user.Tel
             };
             return View(uvm);
         }
-
         [HttpPost]
         public ActionResult UserEdit(UserVM uvm)
         {
             if (ModelState.IsValid)
             {
-
+                var user = castVMtoUser(uvm);
+                um.Update(user);
             }
-            return View();
+            return RedirectToAction("User");
+        }
+
+
+        public ActionResult UserDelete(int id)
+        {
+            var user = um.GetbyId(id);
+            var model = castUsertoVM(user);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult UserDelete(UserVM uvm)
+        {
+            um.Delete(uvm.Id);
+            var model = um.GetAll();
+            return RedirectToAction("User");
+            //return View("User",model);
+        }
+
+
+        private User castVMtoUser(UserVM uvm)
+        {
+            return new User
+            {
+                Id = uvm.Id,
+                Email = uvm.Email,
+                Password = uvm.Login,
+                Tel = uvm.Tel,
+                Login = uvm.Login
+            };
+        }
+
+        private UserVM castUsertoVM(User uvm)
+        {
+            return new UserVM
+            {
+                Id = uvm.Id,
+                Email = uvm.Email,
+                Password = uvm.Password,
+                ConfirmPassword = uvm.Password,
+                Tel = uvm.Tel,
+                Login = uvm.Login
+            };
         }
         #endregion
 
+        #region UserRole
+
+        public ActionResult UserRole()
+        {
+            var model = new UserRoleVM();
+            var users = um.GetAll();
+            var roles = rm.GetAllRoles();
+            model.Users = (from p in users
+                           select new SelectListItem() { 
+                               Text = p.Login, 
+                               Value = p.Id.ToString()
+                           });
+            model.Roles = (from p in roles
+                           select new SelectListItem
+                           {
+                               Text = p.Name,
+                               Value = p.Id.ToString()
+                           });
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult UserRole(UserRoleVM obj)
+        {
+            foreach(int userID in obj.SelectedUsers)
+            {
+                var user = um.GetbyId(userID);
+                foreach(int roleId in obj.SelectedRoles)
+                {
+                    var role = rm.GetRolebyId(roleId);
+                    user.Roles.Add(role);
+                }
+            }
+
+            return RedirectToAction("UserRole");
+        }
+
+        #endregion
     }
 }

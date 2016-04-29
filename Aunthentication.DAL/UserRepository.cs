@@ -23,6 +23,8 @@ namespace Aunthentication.DAL
             SqlParameter pEmail = new SqlParameter("@Email", user.Email);
             SqlParameter pTel = new SqlParameter("@Tel", user.Tel);
             Database.ExcecuteNonQuery(procname, new SqlParameter[] { pLogin, pPassword, pEmail, pTel });
+
+            //TODO : Ajour du role "MEMBRE" par défaut
         }
 
         /// <summary>
@@ -32,12 +34,23 @@ namespace Aunthentication.DAL
         public void UpdateUser(User user)
         {
             string procname = "spUserUpdate";
-            SqlParameter pId = new SqlParameter("@Id", user.Login);
+            SqlParameter pId = new SqlParameter("@Id", user.Id);
             SqlParameter pLogin = new SqlParameter("@Login", user.Login);
-            SqlParameter pPassword = new SqlParameter("@Password", user.Login);
-            SqlParameter pEmail = new SqlParameter("@Email", user.Login);
-            SqlParameter pTel = new SqlParameter("@Tel", user.Login);
-            Database.ExcecuteNonQuery(procname, new SqlParameter[] { pLogin, pPassword, pEmail, pTel });
+            SqlParameter pPassword = new SqlParameter("@Password", user.Password);
+            SqlParameter pEmail = new SqlParameter("@Email", user.Email);
+            SqlParameter pTel = new SqlParameter("@Tel", user.Tel);
+            Database.ExcecuteNonQuery(procname, new SqlParameter[] { pId, pLogin, pPassword, pEmail, pTel });
+        }
+
+        /// <summary>
+        /// Delete a user
+        /// </summary>
+        /// <param name="id">User Id</param>
+        public void DeleteUser(int id)
+        {
+            string procname = "spUserDelete";
+            SqlParameter pId = new SqlParameter("@Id", id);
+            Database.ExcecuteNonQuery(procname, new SqlParameter[] { pId });
         }
 
         /// <summary>
@@ -111,9 +124,9 @@ namespace Aunthentication.DAL
                     Id = int.Parse(row["Id"].ToString()),
                     Login = row["Login"].ToString(),
                     Tel = row["Tel"].ToString(),
-                    Email = row["Email"].ToString(),
-                });
-                
+                    Email = row["Email"].ToString(), 
+                    Password = row["Password"].ToString()
+                });                
             }
             return users;
         }

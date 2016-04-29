@@ -152,6 +152,9 @@
     <Content Include="Views\Admin\User.cshtml" />
     <Content Include="Views\Admin\UserCreate.cshtml" />
     <Content Include="Views\Admin\UserEdit.cshtml" />
+    <Content Include="Views\Admin\UserDeleteAuto.cshtml" />
+    <Content Include="Views\Admin\UserDelete.cshtml" />
+    <Content Include="Views\Admin\UserRole.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

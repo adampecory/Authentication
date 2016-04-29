@@ -4,6 +4,10 @@ namespace Authentication.Model
 {
     public class User
     {
+        public User()
+        {
+            Roles = new List<Role>();
+        }
         public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }

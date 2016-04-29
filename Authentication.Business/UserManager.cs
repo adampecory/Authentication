@@ -26,14 +26,17 @@ namespace Authentication.Business
         {
             repo.UpdateUser(user);
         }
+
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            repo.DeleteUser(id);
         }
+
         public List<User> GetAll()
         {
             return repo.GetAll();
         }
+
         public bool Validate(string login, string password)
         {
             bool Trve = false;

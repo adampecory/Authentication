@@ -65,6 +65,11 @@ AS
 Select * from PRO_USER where LOGIN=@Login and PASSWORD=@Password
 GO
 
+CREATE PROCEDURE spUserDelete @Id int
+AS
+Delete from PRO_USERROLE where ID_USER=@Id
+Delete from PRO_USER where ID=@Id
+GO
 
 /*UserROLE*/
 CREATE PROCEDURE spURAddUserToRole @ID_USER int, @ID_ROLE int
